@@ -3,9 +3,30 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "react-scripts": "2.1.1"
+    "@emotion/core": "^10.0.5",
+    "@emotion/styled": "^10.0.5",
+    "@esri/arcgis-rest-geocoder": "^1.14.3",
+    "@esri/arcgis-rest-request": "^1.14.3",
+    "@turf/boolean-point-in-polygon": "^6.0.1",
+    "@turf/buffer": "^5.1.5",
+    "@turf/distance": "^6.0.1",
+    "@turf/helpers": "^6.1.4",
+    "@turf/invariant": "^6.1.2",
+    "@turf/points-within-polygon": "^5.1.5",
+    "date-fns": "^1.30.1",
+    "debounce-fn": "^1.0.0",
+    "downshift": "^3.1.7",
+    "emotion": "^10.0.5",
+    "esri-loader": "^2.5.0",
+    "match-sorter": "^2.3.0",
+    "react": "^16.7.0-alpha.2",
+    "react-dom": "^16.7.0-alpha.2",
+    "react-emotion": "^10.0.0",
+    "react-fast-compare": "^2.0.4",
+    "react-scripts": "2.1.1",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.84.0",
+    "the-platform": "^0.9.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -21,5 +42,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@esri/arcgis-rest-common-types": "^1.14.3"
+  }
 }
