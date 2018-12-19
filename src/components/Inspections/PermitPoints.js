@@ -3,23 +3,23 @@ import useFilteredLocations from "./useFilteredLocations";
 import { geoQueries } from "../../config.js";
 import Box from "./Box";
 
-function OpenNotices({ center, handleClick, activeIndex, index }) {
-  const [allNotices, setAllNotices] = useState([]);
+function PermitPoints({ center, handleClick, activeIndex, index }) {
+  const [allPermits, setAllPermits] = useState([]);
   useEffect(() => {
-    fetch(geoQueries.openNotices.url)
+    fetch(geoQueries.permitPoints.url)
       .then(res => res.json())
       .then(data => {
-        setAllNotices(data.features.filter(item => item.geometry));
+        setAllPermits(data.features.filter(item => item.geometry));
       });
   }, []);
 
-  const filteredFeatures = useFilteredLocations(allNotices, center);
+  const filteredFeatures = useFilteredLocations(allPermits, center);
 
   return (
     <Box
-      title="Housing Open Notices"
+      title="Housing Permits"
       featuresInside={filteredFeatures}
-      attributes={geoQueries.openNotices.attributes}
+      attributes={geoQueries.permitPoints.attributes}
       handleClick={handleClick}
       index={index}
       activeIndex={activeIndex}
@@ -27,4 +27,4 @@ function OpenNotices({ center, handleClick, activeIndex, index }) {
   );
 }
 
-export default OpenNotices;
+export default PermitPoints;

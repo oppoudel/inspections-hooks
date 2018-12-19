@@ -99,7 +99,7 @@ export default class EsriMap extends Component {
           center: [x, y]
         });
         // prevents panning with the mouse drag event
-        //view.on("drag", e => e.stopPropagation());
+        view.on("drag", e => e.stopPropagation());
 
         view.when(() => this.addPoint());
         view.on("click", e =>

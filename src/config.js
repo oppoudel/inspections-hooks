@@ -46,5 +46,18 @@ export const geoQueries = {
       "Notice Type": "NoticeType",
       Status: "Status"
     }
+  },
+  permitPoints: {
+    name: "permitPoints",
+    title: "Permit Points",
+    url:
+      "https://geodata.baltimorecity.gov/egis/rest/services/BPD/Permit_Points/MapServer/0/query?where=1%3D1&outFields=*&returnGeometry=true&f=geojson",
+    attributes: {
+      CaseNo: "Case No",
+      Description: "Description",
+      "Issued Date": "Issued_Date",
+      Applicant: "Applicant",
+      Lessee: "Lessee"
+    }
   }
 };

@@ -4,7 +4,7 @@ import { Accordion, Icon, Grid, Segment } from "semantic-ui-react";
 import { format } from "date-fns";
 import { geoQueries } from "../../config.js";
 
-function LiquorLicenses({ center, handleClick, activeIndex }) {
+function LiquorLicenses({ center, handleClick, activeIndex, index }) {
   const [allLicenses, setAllLicenses] = useState([]);
   useEffect(() => {
     fetch(geoQueries.liquorLicenses.url)
@@ -27,7 +27,7 @@ function LiquorLicenses({ center, handleClick, activeIndex }) {
     <Fragment>
       <Accordion.Title
         active={activeIndex === 0}
-        index={0}
+        index={index}
         onClick={handleClick}
       >
         <Icon name="dropdown" />
