@@ -16,7 +16,7 @@ function CadCalls({ center, handleClick, activeIndex, index }) {
       });
   }, []);
 
-  const [days, setdays] = useState(30);
+  const [days, setdays] = useState(3);
   const [filteredCalls, setfilteredCalls] = useState([]);
 
   useEffect(
@@ -59,7 +59,7 @@ function CadCalls({ center, handleClick, activeIndex, index }) {
               onClick={() => setdays(30)}
               disabled={days === 30}
             >
-              30 Days
+              Last 30 Days
             </Button>
             <Button
               basic
@@ -69,7 +69,7 @@ function CadCalls({ center, handleClick, activeIndex, index }) {
               onClick={() => setdays(7)}
               disabled={days === 7}
             >
-              7 Days
+              Last 7 Days
             </Button>
             <Button
               basic
@@ -79,7 +79,7 @@ function CadCalls({ center, handleClick, activeIndex, index }) {
               onClick={() => setdays(3)}
               disabled={days === 3}
             >
-              3 Days
+              Last 3 Days
             </Button>
           </Grid.Column>
         </Grid.Row>
