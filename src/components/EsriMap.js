@@ -10,6 +10,8 @@ const styles = {
   }
 };
 
+let view;
+
 const options = {
   url: "https://js.arcgis.com/4.10/",
   dojoConfig: {
@@ -23,8 +25,6 @@ export default function EsriMap({ center, updateXY }) {
   const viewdivRef = useRef();
   const { x, y } = center;
 
-  let view;
-
   useEffect(() => {
     createMap();
   }, []);
@@ -36,7 +36,7 @@ export default function EsriMap({ center, updateXY }) {
     [center]
   );
 
-  const createMap = async () => {
+  async function createMap() {
     const [MapView, Map] = await loadModules(
       ["esri/views/MapView", "esri/Map"],
       options
@@ -54,7 +54,7 @@ export default function EsriMap({ center, updateXY }) {
     view.when(() => this.addPoint());
     view.on("click", e => updateXY(e.mapPoint.longitude, e.mapPoint.latitude));
     view.on("drag", e => e.stopPropagation());
-  };
+  }
 
   const addPoint = async () => {
     const [Graphic, geometryEngine] = await loadModules(
