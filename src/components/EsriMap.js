@@ -1,7 +1,6 @@
 import { loadModules } from "esri-loader";
-import React, { Component } from "react";
+import React, { useEffect, useRef } from "react";
 import { Card, Segment, Header } from "semantic-ui-react";
-import isEqual from "react-fast-compare";
 
 const styles = {
   mapDiv: {
@@ -10,7 +9,7 @@ const styles = {
     position: "relative"
   }
 };
-let webmap, view;
+
 const options = {
   url: "https://js.arcgis.com/4.10/",
   dojoConfig: {
@@ -20,103 +19,96 @@ const options = {
   }
 };
 
-export default class EsriMap extends Component {
-  viewdivRef = React.createRef();
-  componentDidMount = () => {
-    this.createMap();
-  };
-  componentDidUpdate({ children: _, ...prevProps }) {
-    const { children, ...props } = this.props;
-    if (!isEqual(prevProps, props)) {
-      this.addPoint();
-    }
-  }
+export default function EsriMap({ center, updateXY }) {
+  const viewdivRef = useRef();
+  const { x, y } = center;
 
-  addPoint = () => {
-    loadModules(["esri/Graphic", "esri/geometry/geometryEngine"], options).then(
-      ([Graphic, geometryEngine]) => {
-        const {
-          center: { x, y }
-        } = this.props;
-        if (webmap && view) {
-          webmap.removeAll();
-          view.graphics.removeAll();
-          const marker = {
-            type: "simple-marker",
-            style: "circle",
-            size: 12,
-            color: [51, 176, 255],
-            outline: {
-              color: [0, 0, 0],
-              width: 1
-            }
-          };
-          const pointGraphic = new Graphic({
-            geometry: {
-              type: "point",
-              x,
-              y
-            },
-            symbol: marker
-          });
-          const pointBuffer = geometryEngine.geodesicBuffer(
-            pointGraphic.geometry,
-            200,
-            "feet",
-            true
-          );
-          const bufferGraphic = new Graphic({
-            geometry: pointBuffer,
-            symbol: {
-              type: "simple-fill",
-              outline: {
-                width: 1.5,
-                color: [0, 0, 0, 0.5]
-              },
-              style: "none"
-            }
-          });
-          view.graphics.addMany([bufferGraphic, pointGraphic]);
-          view.goTo([x, y]);
+  let view;
+
+  useEffect(() => {
+    createMap();
+  }, []);
+
+  useEffect(
+    () => {
+      addPoint();
+    },
+    [center]
+  );
+
+  const createMap = async () => {
+    const [MapView, Map] = await loadModules(
+      ["esri/views/MapView", "esri/Map"],
+      options
+    );
+    const webmap = new Map({
+      basemap: "streets-navigation-vector"
+    });
+    view = new MapView({
+      map: webmap,
+      container: viewdivRef.current,
+      zoom: 16,
+      center: [x, y]
+    });
+    // prevents panning with the mouse drag event
+    view.when(() => this.addPoint());
+    view.on("click", e => updateXY(e.mapPoint.longitude, e.mapPoint.latitude));
+    view.on("drag", e => e.stopPropagation());
+  };
+
+  const addPoint = async () => {
+    const [Graphic, geometryEngine] = await loadModules(
+      ["esri/Graphic", "esri/geometry/geometryEngine"],
+      options
+    );
+    await view.when();
+    if (view) {
+      view.graphics.removeAll();
+      const marker = {
+        type: "simple-marker",
+        style: "circle",
+        size: 12,
+        color: [51, 176, 255],
+        outline: {
+          color: [0, 0, 0],
+          width: 1
         }
-      }
-    );
+      };
+      const pointGraphic = new Graphic({
+        geometry: {
+          type: "point",
+          x,
+          y
+        },
+        symbol: marker
+      });
+      const pointBuffer = geometryEngine.geodesicBuffer(
+        pointGraphic.geometry,
+        200,
+        "feet",
+        true
+      );
+      const bufferGraphic = new Graphic({
+        geometry: pointBuffer,
+        symbol: {
+          type: "simple-fill",
+          outline: {
+            width: 1.5,
+            color: [0, 0, 0, 0.5]
+          },
+          style: "none"
+        }
+      });
+      view.graphics.addMany([bufferGraphic, pointGraphic]);
+      view.goTo([x, y]);
+    }
   };
-  createMap() {
-    const {
-      center: { x, y },
-      updateXY
-    } = this.props;
-    loadModules(["esri/views/MapView", "esri/Map"], options).then(
-      ([MapView, Map]) => {
-        webmap = new Map({
-          basemap: "streets-navigation-vector"
-        });
-        view = new MapView({
-          map: webmap,
-          container: this.viewdivRef.current,
-          zoom: 16,
-          center: [x, y]
-        });
-        // prevents panning with the mouse drag event
-        view.on("drag", e => e.stopPropagation());
-
-        view.when(() => this.addPoint());
-        view.on("click", e =>
-          updateXY(e.mapPoint.longitude, e.mapPoint.latitude)
-        );
-      }
-    );
-  }
-
-  render() {
-    return (
-      <Segment>
-        <Card fluid>
-          <div style={styles.mapDiv} ref={this.viewdivRef} />
-        </Card>
-        <Header as="h5">Search Distance : 200ft</Header>
-      </Segment>
-    );
-  }
+  return (
+    <Segment>
+      <Card fluid>
+        <div style={styles.mapDiv} ref={viewdivRef} />
+      </Card>
+      <Header as="h5">Search Distance : 200ft</Header>
+    </Segment>
+  );
 }
