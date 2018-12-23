@@ -64,8 +64,8 @@ export default function EsriMap({ center, updateXY }) {
       ["esri/Graphic", "esri/geometry/geometryEngine"],
       options
     );
-    //await view.when();
     if (view) {
+      await view.when();
       view.graphics.removeAll();
       const marker = {
         type: "simple-marker",
