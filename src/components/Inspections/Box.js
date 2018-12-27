@@ -9,7 +9,9 @@ const entity = (key, value, properties) => {
         ? `${key}: ${format(properties[value], "MM/DD/YYYY HH:MM")}`
         : key.includes("Date")
         ? `${key}: ${format(properties[value], "MM/DD/YYYY")}`
-        : `${key}: ${properties[value]}`}
+        : properties[value]
+        ? `${key}: ${properties[value]}`
+        : null}
     </div>
   );
 };

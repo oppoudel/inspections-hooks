@@ -38,7 +38,7 @@ export const geoQueries = {
     name: "openNotices",
     title: "Housing Open Notices",
     url:
-      "https://geodata.baltimorecity.gov/egis/rest/services/BPD/Open_Notices/MapServer/0/query?where=1%3D1&outFields=*&returnGeometry=true&f=geojson",
+      "https://geodata.baltimorecity.gov/egis/rest/services/BPD/Open_Notices/MapServer/0/query?where=DateNotice+>+%27January+01%2C+2016%27&orderByFields=DateNotice+DESC&outFields=*&returnGeometry=true&f=geojson",
     attributes: {
       Address: "Address",
       "Notice Number": "NoticeNum",
@@ -49,14 +49,15 @@ export const geoQueries = {
   },
   permitPoints: {
     name: "permitPoints",
-    title: "Permit Points",
+    title: "Housing Permits",
     url:
-      "https://geodata.baltimorecity.gov/egis/rest/services/BPD/Permit_Points/MapServer/0/query?where=1%3D1&outFields=*&returnGeometry=true&f=geojson",
+      "https://geodata.baltimorecity.gov/egis/rest/services/BPD/Permit_Points/MapServer/0/query?where=Issued_Date+>+%27January+01%2C+2016%27&orderByFields=Issued_Date+DESC&outFields=*&returnGeometry=true&f=geojson",
     attributes: {
       CaseNo: "Case No",
+      Applicant: "Applicant",
+      Address: "Address",
       Description: "Description",
       "Issued Date": "Issued_Date",
-      Applicant: "Applicant",
       Lessee: "Lessee"
     }
   }
