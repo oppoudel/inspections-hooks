@@ -45,6 +45,5 @@
   ],
   "devDependencies": {
     "@esri/arcgis-rest-common-types": "^1.14.3"
-  },
-  "homepage": "https://gis.baltimorecity.gov/bpd-inspections"
+  }
 }
