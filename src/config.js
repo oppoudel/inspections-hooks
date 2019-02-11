@@ -60,5 +60,8 @@ export const geoQueries = {
       "Issued Date": "Issued_Date",
       Lessee: "Lessee"
     }
+  },
+  vri_Zones: {
+    url: "https://maps.baltimorecity.gov/egis/rest/services/CitiStat/VRI_Zones/MapServer"
   }
 };
