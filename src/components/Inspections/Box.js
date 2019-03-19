@@ -1,14 +1,14 @@
-import React, { Fragment } from "react";
-import { Accordion, Icon, Grid, Segment } from "semantic-ui-react";
-import { format } from "date-fns";
+import React, { Fragment } from 'react';
+import { Accordion, Icon, Grid, Segment } from 'semantic-ui-react';
+import { format } from 'date-fns';
 
 const entity = (key, value, properties) => {
   return (
-    <div key={value}>
-      {key.includes("Time")
-        ? `${key}: ${format(properties[value], "MM/DD/YYYY HH:MM")}`
-        : key.includes("Date")
-        ? `${key}: ${format(properties[value], "MM/DD/YYYY")}`
+    <div key={value} style={{ textTransform: 'capitalize' }}>
+      {key.includes('Time')
+        ? `${key}: ${format(properties[value], 'MM/DD/YYYY HH:MM')}`
+        : key.includes('Date')
+        ? `${key}: ${format(properties[value], 'MM/DD/YYYY')}`
         : properties[value]
         ? `${key}: ${properties[value]}`
         : null}
