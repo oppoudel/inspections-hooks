@@ -65,7 +65,8 @@ export const geoQueries = {
       Address: 'ShortLabel',
       Name: 'Name',
       'License Number': 'Lnumber',
-      'Type of Business': 'Type_1'
+      'Type of Business': 'Type_1',
+      Status: 'Status'
     }
   },
   vri_Zones: {
