@@ -33,7 +33,7 @@ export const geoQueries = {
     name: 'openNotices',
     title: 'Housing Open Notices',
     url:
-      'https://geodata.baltimorecity.gov/egis/rest/services/BPD/Open_Notices/MapServer/0/query?where=DateNotice+>+%27January+01%2C+2016%27&orderByFields=DateNotice+DESC&outFields=*&returnGeometry=true&f=geojson',
+      'https://gis.baltimorecity.gov/egis/rest/services/Misc/Open_Notices/MapServer/0/query?where=DateNotice+>+%27January+01%2C+2016%27&orderByFields=DateNotice+DESC&outFields=*&returnGeometry=true&f=geojson',
     attributes: {
       Address: 'Address',
       'Notice Number': 'NoticeNum',
@@ -46,7 +46,7 @@ export const geoQueries = {
     name: 'permitPoints',
     title: 'Housing Permits',
     url:
-      'https://geodata.baltimorecity.gov/egis/rest/services/BPD/Permit_Points/MapServer/0/query?where=Issued_Date+>+%27January+01%2C+2016%27&orderByFields=Issued_Date+DESC&outFields=*&returnGeometry=true&f=geojson',
+      'https://gis.baltimorecity.gov/egis/rest/services/Misc/Permit_Points/MapServer/0/query?where=Issued_Date+>+%27January+01%2C+2016%27&orderByFields=Issued_Date+DESC&outFields=*&returnGeometry=true&f=geojson',
     attributes: {
       CaseNo: 'Case No',
       Applicant: 'Applicant',
@@ -60,7 +60,7 @@ export const geoQueries = {
     name: 'lateNight',
     title: 'Late Night Establishments',
     url:
-      'https://maps.baltimorecity.gov/egis/rest/services/CitiStat/SS2019LN/MapServer/0/query?where=1%3D1&outFields=*&f=geojson',
+      'https://gis.baltimorecity.gov/egis/rest/services/Misc/LateNight_Establishments/MapServer/0/query?where=1%3D1&outFields=*&f=geojson',
     attributes: {
       Address: 'ShortLabel',
       Name: 'Name',
@@ -70,6 +70,6 @@ export const geoQueries = {
     }
   },
   vri_Zones: {
-    url: 'https://maps.baltimorecity.gov/egis/rest/services/CitiStat/VRI_Zones/MapServer'
+    url: 'https://gis.baltimorecity.gov/egis/rest/services/Misc/VRI_Zones/MapServer'
   }
 };
